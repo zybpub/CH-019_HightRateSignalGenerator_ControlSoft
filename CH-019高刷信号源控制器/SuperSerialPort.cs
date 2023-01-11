@@ -181,13 +181,15 @@ namespace CH_019高刷信号源控制器
         /// byte数组
         /// </summary>
         /// <param name="cmdbytes"></param>
-        public void Send(byte[] cmdbytes)
+        public string  Send(byte[] cmdbytes)
         {
-            if (cmdbytes?.Length > 0 && CommPort.IsOpen)
+            if (CommPort.IsOpen == false) return "端口未打开";
+            if (cmdbytes?.Length > 0 )
             {
                 CommPort.Write(cmdbytes, 0, cmdbytes.Length);
-
+                return "OK";
             }
+            return "发送内容为空";
         }
         #endregion
 

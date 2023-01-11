@@ -7,11 +7,11 @@
     public static string vga视频格式, vga_r, vga_g, vga_b, vga_内置图索引, vga_BMP文件索引, vga_图案组索引, vga_左声道频率, vga_右声道频率, vga_音乐文件索引;
     public static bool vga_EDID开关, vga_osd开关, vga_RGB纯色图案, vga_内置图案, vga_BMP图案, vga_图案组, vga_静音, vga_正弦波, vga_WAV音乐文件;
 
-    public static string dp视频格式, dp_r, dp_g, dp_b, dp_内置图索引, dp_BMP文件索引, dp_图案组索引, dp_左声道频率, dp_右声道频率, dp_音乐文件索引;
-    public static bool dp_hdcp开关, dp_edid开关, dp_osd开关, dp_RGB纯色图案, dp_内置图案, dp_BMP图案, dp_图案组, dp_静音, dp_正弦波, dp_WAV音乐文件;
+    public static string dp视频格式, dp_r, dp_g, dp_b, dp_内置图索引, dp_BMP文件索引, dp_图案组索引, dp_左声道频率, dp_右声道频率, dp_音乐文件索引, dp_hdcp开关;
+    public static bool  dp_edid开关, dp_osd开关, dp_RGB纯色图案, dp_内置图案, dp_BMP图案, dp_图案组, dp_静音, dp_正弦波, dp_WAV音乐文件;
 
-    public static string hdmi视频格式, hdmi_r, hdmi_g, hdmi_b, hdmi_内置图索引, hdmi_BMP文件索引, hdmi_图案组索引, hdmi_左声道频率, hdmi_右声道频率, hdmi_音乐文件索引;
-    public static bool hdmi_hdcp开关, hdmi_edid开关, hdmi_osd开关, hdmi_cec开关, hdmi_arc开关, hdmi_RGB纯色图案, hdmi_内置图案, hdmi_BMP图案, hdmi_图案组, hdmi_静音, hdmi_正弦波, hdmi_WAV音乐文件;
+    public static string hdmi视频格式, hdmi_r, hdmi_g, hdmi_b, hdmi_内置图索引, hdmi_BMP文件索引, hdmi_图案组索引, hdmi_左声道频率, hdmi_右声道频率, hdmi_音乐文件索引,hdmi_hdcp开关;
+    public static bool  hdmi_edid开关, hdmi_osd开关, hdmi_cec开关, hdmi_arc开关, hdmi_RGB纯色图案, hdmi_内置图案, hdmi_BMP图案, hdmi_图案组, hdmi_静音, hdmi_正弦波, hdmi_WAV音乐文件;
 
     public static bool crosstalk_vga, crosstalk_dp, crosstalk_hdmi;
     public static string crosstalk_back_r, crosstalk_back_g, crosstalk_back_b, crosstalk_box_r, crosstalk_box_g, crosstalk_box_b;
@@ -108,7 +108,7 @@
         if (jsonObject["dp_右声道频率"] != null) dp_右声道频率 = (string)jsonObject["dp_右声道频率"];
         if (jsonObject["dp_音乐文件索引"] != null) dp_音乐文件索引 = (string)jsonObject["dp_音乐文件索引"];
 
-        if (jsonObject["dp_hdcp开关"] != null) dp_hdcp开关 = (bool)jsonObject["dp_hdcp开关"];
+        if (jsonObject["dp_hdcp开关"] != null) dp_hdcp开关 = (string)jsonObject["dp_hdcp开关"];
         if (jsonObject["dp_edid开关"] != null) dp_edid开关 = (bool)jsonObject["dp_edid开关"];
         if (jsonObject["dp_osd开关"] != null) dp_osd开关 = (bool)jsonObject["dp_osd开关"];
         if (jsonObject["dp_RGB纯色图案"] != null) dp_RGB纯色图案 = (bool)jsonObject["dp_RGB纯色图案"];
@@ -130,6 +130,7 @@
         if (jsonObject["hdmi_左声道频率"] != null) hdmi_左声道频率 = (string)jsonObject["hdmi_左声道频率"];
         if (jsonObject["hdmi_右声道频率"] != null) hdmi_右声道频率 = (string)jsonObject["hdmi_右声道频率"];
         if (jsonObject["hdmi_音乐文件索引"] != null) hdmi_音乐文件索引 = (string)jsonObject["hdmi_音乐文件索引"];
+        if (jsonObject["hdmi_hdcp开关"] != null) hdmi_hdcp开关 = (string)jsonObject["hdmi_hdcp开关"];
 
         if (jsonObject["hdmi_EDID开关"] != null) hdmi_edid开关 = (bool)jsonObject["hdmi_EDID开关"];
         if (jsonObject["hdmi_osd开关"] != null) hdmi_osd开关 = (bool)jsonObject["hdmi_osd开关"];

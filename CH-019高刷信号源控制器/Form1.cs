@@ -106,7 +106,9 @@ namespace CH_019高刷信号源控制器
 
             //dp
             cbb_dp视频格式.SelectedIndex = Convert.ToInt16(config_json.dp视频格式);
-            cb_dp_hdcp开关.Checked = config_json.dp_hdcp开关;
+            if (config_json.dp_hdcp开关 == "0")
+                cb_dp_hdcp开关.Checked = true;
+            else cb_dp_hdcp开关.Checked = false;
             cb_dp_edid开关.Checked = config_json.dp_edid开关;
             cb_dp_osd开关.Checked = config_json.dp_osd开关;
             rb_dp_RGB纯色图案.Checked = config_json.dp_RGB纯色图案;
@@ -130,7 +132,9 @@ namespace CH_019高刷信号源控制器
 
             //hdmi
             cbb_hdmi视频格式.SelectedIndex = Convert.ToInt16(config_json.hdmi视频格式);
-            cb_hdmi_hdcp开关.Checked = config_json.hdmi_hdcp开关;
+            if (config_json.hdmi_hdcp开关 == "0")
+                cb_hdmi_hdcp开关.Checked = true;
+            else cb_hdmi_hdcp开关.Checked = false;
             cb_hdmi_edid开关.Checked = config_json.hdmi_edid开关;
             cb_hdmi_cec开关.Checked = config_json.hdmi_cec开关;
             cb_hdmi_arc开关.Checked = config_json.hdmi_arc开关;
@@ -235,7 +239,7 @@ namespace CH_019高刷信号源控制器
             jsonObj["serial_portname"] = cbb_serial_portname.Text;
 
             //vga
-            jsonObj["vga视频格式"] = cbb_dp视频格式.SelectedIndex;
+            jsonObj["vga视频格式"] = cbb_vga视频格式.SelectedIndex.ToString();
             jsonObj["vga_r"] = tb_vga_r.Text;
             jsonObj["vga_g"] = tb_vga_g.Text;
             jsonObj["vga_b"] = tb_vga_b.Text;
@@ -269,7 +273,8 @@ namespace CH_019高刷信号源控制器
             jsonObj["dp_右声道频率"] = tb_dp_右声道频率.Text;
             jsonObj["dp_音乐文件索引"] = tb_dp_音乐文件索引.Text;
 
-            jsonObj["dp_hdcp开关"] = cb_dp_hdcp开关.Checked.ToString();
+            if (cb_dp_hdcp开关.Checked) jsonObj["dp_hdcp开关"] = "0";
+            else     jsonObj["dp_hdcp开关"] = "2";
             jsonObj["dp_edid开关"] = cb_dp_edid开关.Checked.ToString();
             jsonObj["dp_osd开关"] = cb_dp_osd开关.Checked.ToString();
             jsonObj["dp_RGB纯色图案"] = rb_dp_RGB纯色图案.Checked.ToString();
@@ -282,7 +287,7 @@ namespace CH_019高刷信号源控制器
 
 
             //hdmi
-            jsonObj["hdmi视频格式"] = cbb_dp视频格式.SelectedIndex;
+            jsonObj["hdmi视频格式"] = cbb_hdmi视频格式.SelectedIndex;
             jsonObj["hdmi_r"] = tb_hdmi_r.Text;
             jsonObj["hdmi_g"] = tb_hdmi_g.Text;
             jsonObj["hdmi_b"] = tb_hdmi_b.Text;
@@ -293,7 +298,9 @@ namespace CH_019高刷信号源控制器
             jsonObj["hdmi_右声道频率"] = tb_hdmi_右声道频率.Text;
             jsonObj["hdmi_音乐文件索引"] = tb_hdmi_音乐文件索引.Text;
 
-            jsonObj["hdmi_hdcp开关"] = cb_hdmi_hdcp开关.Checked.ToString();
+            if (cb_hdmi_hdcp开关.Checked) jsonObj["hdmi_hdcp开关"] = "0";
+            else jsonObj["hdmi_hdcp开关"] = "2";
+
             jsonObj["hdmi_EDID开关"] = cb_hdmi_edid开关.Checked.ToString();
             jsonObj["hdmi_osd开关"] = cb_hdmi_osd开关.Checked.ToString();
             jsonObj["hdmi_cec开关"] = cb_hdmi_cec开关.Checked.ToString();
@@ -450,6 +457,12 @@ namespace CH_019高刷信号源控制器
             vga参数设置[13] = Convert.ToByte(cb_vga_osd开关.Checked);
 
             //图案
+            if (rb_vga_RGB纯色图案.Checked) { vga参数设置[14] = 1; tb_vga_r.Enabled = true; tb_vga_g.Enabled = true; tb_vga_b.Enabled = true; }
+            if (rb_vga_内置图案.Checked) { vga参数设置[14] = 2; tb_vga_内置图索引.Enabled = true; }
+
+            if (rb_vga_BMP图案.Checked) { vga参数设置[14] = 3; tb_vga_BMP文件索引.Enabled = true; }
+            if (rb_vga_图案组.Checked) { vga参数设置[14] = 4; tb_vga_图案组索引.Enabled = true; }
+
             vga参数设置[15] = Convert.ToByte(tb_vga_内置图索引.Text);
             vga参数设置[16] = Convert.ToByte(tb_vga_BMP文件索引.Text);
             vga参数设置[17] = Convert.ToByte(tb_vga_r.Text);
@@ -465,8 +478,11 @@ namespace CH_019高刷信号源控制器
             vga参数设置[30] = count_sum(vga参数设置);
             //0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30
             //AA CB 00 10 00 18 00 00 00 00 01 00 00 01 00 01 01 64 64 00 01 00 01 01 02 01 00 00 00 00 EA
+            //AA CB 00 10 00 18 02 00 00 00 00 00 00 00 00 02 01 FF 00 00 01 00 01 01 02 01 00 00 00 00 0A
+            //AA CB 00 10 00 18 01 00 00 00 00 00 00 00 00 02 01 FF 00 00 01 00 01 01 02 01 00 00 00 00 09
+            //AA CB 00 10 00 18 04 00 00 00 00 00 00 00 00 02 01 80 80 80 01 00 00 01 02 01 00 00 00 00 8C
             tb_reply.Text += "发送指令：" + ssp.ByteToHex(vga参数设置) + "\r\n";
-            ssp.Send(vga参数设置);
+           tb_reply.Text+= ssp.Send(vga参数设置)+"\r\n";
 
         }
         byte count_sum(byte[] b)
@@ -524,6 +540,11 @@ namespace CH_019高刷信号源控制器
 
 
             //图案
+            if (rb_hdmi_RGB纯色图案.Checked) { hdmi参数设置[14] = 1; }
+            if (rb_hdmi_内置图案.Checked) { hdmi参数设置[14] = 2; }
+            if (rb_hdmi_BMP图案.Checked) { hdmi参数设置[14] = 3; }
+            if (rb_hdmi_图案组.Checked) { hdmi参数设置[14] = 4; }
+
             hdmi参数设置[15] = Convert.ToByte(tb_hdmi_内置图索引.Text);
             hdmi参数设置[16] = Convert.ToByte(tb_hdmi_BMP文件索引.Text);
             hdmi参数设置[17] = Convert.ToByte(tb_hdmi_r.Text);
@@ -539,7 +560,7 @@ namespace CH_019高刷信号源控制器
             hdmi参数设置[30] = count_sum(hdmi参数设置);
 
             tb_reply.Text +="发送指令："+ ssp.ByteToHex(hdmi参数设置) + "\r\n";
-            ssp.Send(hdmi参数设置);
+            tb_reply.Text += ssp.Send(hdmi参数设置)+"\r\n";
         }
 
         private void radioButton3_CheckedChanged_1(object sender, EventArgs e)
@@ -1071,6 +1092,11 @@ namespace CH_019高刷信号源控制器
             dp参数设置[13] = Convert.ToByte(cb_dp_osd开关.Checked);
 
             //图案
+            if (rb_dp_RGB纯色图案.Checked) { dp参数设置[14] = 1; tb_dp_r.Enabled = true; tb_dp_g.Enabled = true; tb_dp_b.Enabled = true; }
+            if (rb_dp_内置图案.Checked) { dp参数设置[14] = 2; tb_dp_内置图索引.Enabled = true; }
+
+            if (rb_dp_BMP图案.Checked) { dp参数设置[14] = 3; tb_dp_BMP文件索引.Enabled = true; }
+            if (rb_dp_图案组.Checked) { dp参数设置[14] = 4; tb_dp_图案组索引.Enabled = true; }
             dp参数设置[15] = Convert.ToByte(tb_dp_内置图索引.Text);
             dp参数设置[16] = Convert.ToByte(tb_dp_BMP文件索引.Text);
             dp参数设置[17] = Convert.ToByte(tb_dp_r.Text);
@@ -1086,7 +1112,7 @@ namespace CH_019高刷信号源控制器
             dp参数设置[30] = count_sum(dp参数设置);
 
             tb_reply.Text += "发送指令：" + ssp.ByteToHex(dp参数设置) + "\r\n";
-            ssp.Send(dp参数设置);
+            tb_reply.Text += ssp.Send(dp参数设置)+"\r\n";
         }
     }
 }
