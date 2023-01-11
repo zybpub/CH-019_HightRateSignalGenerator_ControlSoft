@@ -150,7 +150,7 @@ namespace CH_019高刷信号源控制器
         {
             StringBuilder builder = new StringBuilder(comByte.Length * 3);
             foreach (byte data in comByte)
-                builder.Append(Convert.ToString(data, 16).PadLeft(2, '0'));
+                builder.Append(Convert.ToString(data, 16).PadLeft(2, '0')+" ");
             return builder.ToString().ToUpper();
         }
         #endregion
