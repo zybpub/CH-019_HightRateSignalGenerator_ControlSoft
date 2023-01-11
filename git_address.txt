@@ -1,0 +1,2 @@
+https://github.com/zybpub/CH-019_HightRateSignalGenerator_ControlSoft.git
+public
